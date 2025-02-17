@@ -143,13 +143,18 @@ def play_background_music():
     pygame.mixer.music.load("music/background.mp3")  # Load the background music file
     pygame.mixer.music.play(-1)  # Play the background music in a loop
 
+# Track if intense music has started
+intense_music_started = False
+
 def play_intense_music():
-    if pygame.mixer.music.get_busy():
-        pygame.mixer.music.stop()  # Stop any currently playing music
-    pygame.mixer.music.load("music/intense.mp3")  # Load the intense music file
-    pygame.mixer.music.play(-1)  # Play the intense music in a loop
+    global intense_music_started
+    if not intense_music_started:
+        pygame.mixer.music.load("music/intense.mp3")  # Load the intense music file
+        pygame.mixer.music.play(-1)  # Play the intense music in a loop
+        intense_music_started = True
 
 def player_move(player_choice):
+    global intense_music_started
     move1 = player_choice
     move2 = get_random_move()
 
@@ -167,7 +172,7 @@ def player_move(player_choice):
 
     def show_results():
         result_label.config(text=round_result)
-        if loli1.hp == 1 or loli2.hp == 1:
+        if (loli1.hp == 1 or loli2.hp == 1) and not intense_music_started:
             play_intense_music()  # Play intense music if either character is down to 1 hit point
 
         if loli1.hp == 0:
@@ -185,7 +190,7 @@ def player_move(player_choice):
         update_gui()  # Always update the GUI at the end of a round
 
     animate_icons(move1, move2, show_results)
-    
+
 # Initialize pygame
 pygame.init()
 
