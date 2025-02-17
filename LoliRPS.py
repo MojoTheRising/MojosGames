@@ -4,6 +4,9 @@ import os
 from PIL import Image, ImageTk  # You need to install Pillow library
 import pygame  # Import the pygame library
 
+# Track if intense music has started
+intense_music_started = False
+
 class Character:
     def __init__(self, name, hp, img_prefix):
         self.name = name
@@ -142,9 +145,6 @@ def enable_buttons():
 def play_background_music():
     pygame.mixer.music.load("music/background.mp3")  # Load the background music file
     pygame.mixer.music.play(-1)  # Play the background music in a loop
-
-# Track if intense music has started
-intense_music_started = False
 
 def play_intense_music():
     global intense_music_started
