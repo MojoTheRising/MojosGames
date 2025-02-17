@@ -144,9 +144,10 @@ def play_background_music():
     pygame.mixer.music.play(-1)  # Play the background music in a loop
 
 def play_intense_music():
-    if not pygame.mixer.music.get_busy():
-        pygame.mixer.music.load("music/intense.mp3")  # Load the intense music file
-        pygame.mixer.music.play(-1)  # Play the intense music in a loop
+    if pygame.mixer.music.get_busy():
+        pygame.mixer.music.stop()  # Stop any currently playing music
+    pygame.mixer.music.load("music/intense.mp3")  # Load the intense music file
+    pygame.mixer.music.play(-1)  # Play the intense music in a loop
 
 def player_move(player_choice):
     move1 = player_choice
