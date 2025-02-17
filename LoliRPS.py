@@ -37,13 +37,14 @@ class Character:
             return None
 
 def init_characters(reset_wins=False):
-    global loli1, loli2
+    global loli1, loli2, intense_music_started
     if reset_wins or loli1 is None or loli2 is None:
         loli1 = Character("Loli 1", 4, "loli1")
         loli2 = Character("Loli 2", 4, "loli2")
     else:
         loli1.hp = 4
         loli2.hp = 4
+    intense_music_started = False  # Reset intense music flag
     update_gui(reset=True)
     play_background_music()  # Play the background music when characters are initialized
 
