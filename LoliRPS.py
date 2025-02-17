@@ -154,6 +154,10 @@ def play_intense_music():
         pygame.mixer.music.play(-1)  # Play the intense music in a loop
         intense_music_started = True
 
+def play_superintense_music():
+    pygame.mixer.music.load("music/superintense.mp3")  # Load the superintense music file
+    pygame.mixer.music.play(-1)  # Play the superintense music in a loop        
+
 def player_move(player_choice):
     global intense_music_started
     move1 = player_choice
@@ -175,6 +179,8 @@ def player_move(player_choice):
         result_label.config(text=round_result)
         if (loli1.hp == 1 or loli2.hp == 1) and not intense_music_started:
             play_intense_music()  # Play intense music if either character is down to 1 hit point
+        if loli1.hp == 1 and loli2.hp == 1:
+            play_superintense_music()  # Play superintense music if both characters are down to 1 hit point
 
         if loli1.hp == 0:
             pygame.mixer.music.load("music/gameover.mp3")  # Load the game over music
