@@ -171,11 +171,13 @@ def player_move(player_choice):
             play_intense_music()  # Play intense music if either character is down to 1 hit point
 
         if loli1.hp == 0:
+            play_background_music()  # Play background music when Loli 1's HP is 0
             loli2.wins += 1  # Increment Loli 2's win count
             update_gui()  # Update GUI to show the new win count
             result_label.config(text=round_result + f"\n{loli1.name} has been defeated! {loli2.name} wins the game!")
             disable_buttons()
         elif loli2.hp == 0:
+            play_background_music()  # Play background music when Loli 2's HP is 0
             loli1.wins += 1  # Increment Loli 1's win count
             update_gui()  # Update GUI to show the new win count
             result_label.config(text=round_result + f"\n{loli2.name} has been defeated! {loli1.name} wins the game!")
@@ -183,7 +185,7 @@ def player_move(player_choice):
         update_gui()  # Always update the GUI at the end of a round
 
     animate_icons(move1, move2, show_results)
-
+    
 # Initialize pygame
 pygame.init()
 
