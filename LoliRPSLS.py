@@ -259,6 +259,17 @@ canvas.pack()
 result_label = tk.Label(root, text="Make your move!", font=("Helvetica", 14))
 result_label.pack(pady=0)  # Remove padding
 
+# Load images for rock, paper, scissors, lizard, spock
+rock_image = ImageTk.PhotoImage(Image.open("images/rock.png").resize((80, 80), Image.LANCZOS))
+paper_image = ImageTk.PhotoImage(Image.open("images/paper.png").resize((80, 80), Image.LANCZOS))
+scissors_image = ImageTk.PhotoImage(Image.open("images/scissors.png").resize((80, 80), Image.LANCZOS))
+lizard_image = ImageTk.PhotoImage(Image.open("images/lizard.png").resize((80, 80), Image.LANCZOS))
+spock_image = ImageTk.PhotoImage(Image.open("images/spock.png").resize((80, 80), Image.LANCZOS))
+
+# Create a frame for the buttons
+button_frame = tk.Frame(root)
+button_frame.pack(pady=10)
+
 # Create and place buttons for player choices using images
 rock_button = tk.Button(button_frame, image=rock_image, command=lambda: player_move("rock"))
 rock_button.grid(row=0, column=0, padx=5)
