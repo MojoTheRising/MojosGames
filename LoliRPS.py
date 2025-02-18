@@ -7,6 +7,9 @@ import pygame  # Import the pygame library
 # Track if intense music has started
 intense_music_started = False
 
+# Track if super intense music has started
+superintense_music_started = False
+
 class Character:
     def __init__(self, name, hp, img_prefix):
         self.name = name
@@ -37,14 +40,15 @@ class Character:
             return None
 
 def init_characters(reset_wins=False):
-    global loli1, loli2, intense_music_started
+    global loli1, loli2, intense_music_started, superintense_music_started
     if reset_wins or loli1 is None or loli2 is None:
         loli1 = Character("Loli 1", 4, "loli1")
-        loli2 = Character("Loli 2", 4, "loli2")
+        loli2 = Character("Loli 2", 4)
     else:
         loli1.hp = 4
         loli2.hp = 4
     intense_music_started = False  # Reset intense music flag
+    superintense_music_started = False  # Reset super intense music flag
     update_gui(reset=True)
     play_background_music()  # Play the background music when characters are initialized
 
@@ -155,11 +159,14 @@ def play_intense_music():
         intense_music_started = True
 
 def play_superintense_music():
-    pygame.mixer.music.load("music/superintense.mp3")  # Load the superintense music file
-    pygame.mixer.music.play(-1)  # Play the superintense music in a loop        
+    global superintense_music_started
+    if not superintense_music_started:
+        pygame.mixer.music.load("music/superintense.mp3")  # Load the superintense music file
+        pygame.mixer.music.play(-1)  # Play the superintense music in a loop
+        superintense_music_started = True
 
 def player_move(player_choice):
-    global intense_music_started
+    global intense_music_started, superintense_music_started
     move1 = player_choice
     move2 = get_random_move()
 
@@ -179,7 +186,7 @@ def player_move(player_choice):
         result_label.config(text=round_result)
         if (loli1.hp == 1 or loli2.hp == 1) and not intense_music_started:
             play_intense_music()  # Play intense music if either character is down to 1 hit point
-        if loli1.hp == 1 and loli2.hp == 1:
+        if loli1.hp == 1 and loli2.hp == 1 and not superintense_music_started:
             play_superintense_music()  # Play superintense music if both characters are down to 1 hit point
 
         if loli1.hp == 0:
