@@ -57,16 +57,18 @@ class Game:
         self.show_hand()
 
     def update_board(self):
-        for i in range(23):
-            if i == self.player.position:
-                self.buttons[i].configure(text='P')
-            elif i == self.cpu.position:
-                self.buttons[i].configure(text='C')
-            else:
-                self.buttons[i].configure(text=' ')
+        if self.board_frame and self.buttons:
+            for i in range(23):
+                if i == self.player.position:
+                    self.buttons[i].configure(text='P')
+                elif i == self.cpu.position:
+                    self.buttons[i].configure(text='C')
+                else:
+                    self.buttons[i].configure(text=' ')
 
     def show_hand(self):
-        self.player_hand_frame.destroy()  # Destroy existing frame
+        if self.player_hand_frame:
+            self.player_hand_frame.destroy()  # Destroy existing frame
         self.player_hand_frame = tk.Frame(self.root)  # Re-create the frame
         self.player_hand_frame.pack()
         for index, card in enumerate(self.player.hand):
