@@ -311,6 +311,12 @@ paper_button.grid(row=0, column=1, padx=5)  # Use grid layout and reduce padding
 scissors_button = tk.Button(button_frame, image=scissors_image, command=lambda: player_move("scissors"))
 scissors_button.grid(row=0, column=2, padx=5)  # Use grid layout and reduce padding
 
+lizard_button = tk.Button(button_frame, image=lizard_image, command=lambda: player_move("lizard"))
+lizard_button.grid(row=0, column=3, padx=5)  # Use grid layout and reduce padding
+
+spock_button = tk.Button(button_frame, image=spock_image, command=lambda: player_move("spock"))
+spock_button.grid(row=0, column=4, padx=5)  # Use grid layout and reduce padding
+
 # Create and place the "Play Again" button
 play_again_button = tk.Button(root, text="Play Again", command=lambda: init_characters(reset_wins=False), font=("Helvetica", 14))
 play_again_button.pack(pady=5)  # Remove padding
