@@ -136,12 +136,18 @@ def animate_icons(player_move, opponent_move, callback):
     canvas.after(1500, lambda: canvas.delete("all"))  # Remove icons after the animation
 
 def disable_buttons():
+    root.unbind("<Left>")
+    root.unbind("<Down>")
+    root.unbind("<Right>")
     rock_button.config(state=tk.DISABLED)
     paper_button.config(state=tk.DISABLED)
     scissors_button.config(state=tk.DISABLED)
     play_again_button.pack()  # Show the "Play Again" button
 
 def enable_buttons():
+    root.bind("<Left>", select_rock)
+    root.bind("<Down>", select_paper)
+    root.bind("<Right>", select_scissors)
     rock_button.config(state=tk.NORMAL)
     paper_button.config(state=tk.NORMAL)
     scissors_button.config(state=tk.NORMAL)
