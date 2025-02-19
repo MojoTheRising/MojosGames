@@ -207,6 +207,15 @@ def player_move(player_choice):
 
     animate_icons(move1, move2, show_results)
 
+def select_rock(event):
+    player_move("rock")
+
+def select_paper(event):
+    player_move("paper")
+
+def select_scissors(event):
+    player_move("scissors")
+
 # Initialize pygame
 pygame.init()
 
@@ -214,6 +223,11 @@ pygame.init()
 root = tk.Tk()
 root.title("Rock, Paper, Scissors - Battle")
 root.geometry("600x600")  # Reduced the window height to 550 pixels
+
+# Add key bindings
+root.bind("<Left>", select_rock)
+root.bind("<Down>", select_paper)
+root.bind("<Right>", select_scissors)
 
 # Create and place widgets for the characters and their hit points
 frame = tk.Frame(root)
