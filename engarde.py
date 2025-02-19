@@ -183,6 +183,8 @@ class Game:
     def end_game(self, message):
         for widget in self.root.winfo_children():
             widget.destroy()
+        if self.player_hand_frame:
+            self.player_hand_frame.destroy()  # Destroy the player's hand frame
         end_label = tk.Label(self.root, text=message, font=('Helvetica', 24))
         end_label.pack()
 
