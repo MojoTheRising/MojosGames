@@ -110,7 +110,6 @@ def animate_icons(player_move, opponent_move, callback):
     player_icon = move_icons[player_move]
     opponent_icon = move_icons[opponent_move]
 
-    # Adjust the initial y-coordinate to move the icons higher up
     player_icon_item = canvas.create_image(150, 70, image=player_icon)
     opponent_icon_item = canvas.create_image(450, 70, image=opponent_icon)
 
@@ -119,17 +118,19 @@ def animate_icons(player_move, opponent_move, callback):
     def move_winner():
         if winner == 1:
             canvas.tag_raise(player_icon_item, opponent_icon_item)  # Bring the winner icon to the front
-            for _ in range(30):
+            for _ in range(30):  # Increase the number of steps to slide all the way over
                 canvas.move(player_icon_item, 10, 0)
                 canvas.update()
                 canvas.after(15)
+            canvas.coords(player_icon_item, 450, 70)  # Ensure the winner icon ends up at the losing move's position
             canvas.after(500, callback)
         elif winner == 2:
             canvas.tag_raise(opponent_icon_item, player_icon_item)  # Bring the winner icon to the front
-            for _ in range(30):
+            for _ in range(30):  # Increase the number of steps to slide all the way over
                 canvas.move(opponent_icon_item, -10, 0)
                 canvas.update()
                 canvas.after(15)
+            canvas.coords(opponent_icon_item, 150, 70)  # Ensure the winner icon ends up at the losing move's position
             canvas.after(500, callback)
         else:
             # Move closer to each other
