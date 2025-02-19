@@ -69,6 +69,9 @@ class Game:
                 except tk.TclError:
                     # Handle the case where the button does not exist
                     pass
+            
+            if self.is_game_over():
+                self.end_game("Game over!")  # Or any other end game message
 
     def show_hand(self):
         if self.player_hand_frame:
