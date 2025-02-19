@@ -59,12 +59,16 @@ class Game:
     def update_board(self):
         if self.board_frame and self.buttons:
             for i in range(23):
-                if i == self.player.position:
-                    self.buttons[i].configure(text='P')
-                elif i == self.cpu.position:
-                    self.buttons[i].configure(text='C')
-                else:
-                    self.buttons[i].configure(text=' ')
+                try:
+                    if i == self.player.position:
+                        self.buttons[i].configure(text='P')
+                    elif i == self.cpu.position:
+                        self.buttons[i].configure(text='C')
+                    else:
+                        self.buttons[i].configure(text=' ')
+                except tk.TclError:
+                    # Handle the case where the button does not exist
+                    pass
 
     def show_hand(self):
         if self.player_hand_frame:
