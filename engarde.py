@@ -71,7 +71,8 @@ class Game:
                     pass
             
             if self.is_game_over():
-                self.end_game("Game over!")  # Or any other end game message
+                winner = "Player wins!" if self.player.position == self.cpu.position else "CPU wins!"
+                self.end_game(winner)
 
     def show_hand(self):
         if self.player_hand_frame:
