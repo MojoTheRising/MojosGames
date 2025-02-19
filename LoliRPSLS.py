@@ -113,7 +113,7 @@ def animate_icons(player_move, opponent_move, callback):
     player_icon_item = canvas.create_image(150, 70, image=player_icon)
     opponent_icon_item = canvas.create_image(450, 70, image=opponent_icon)
 
-    winner = determine_winner(player_move, opponent_move)
+    winner = determine_winner(player_move, opponent_move)[0]
 
     def move_winner():
         if winner == 1:
