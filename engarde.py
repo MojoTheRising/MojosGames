@@ -138,30 +138,30 @@ class Game:
 
         self.show_hand()
 
-def cpu_move(self, value):
-    move_left = self.cpu.position - value
-    move_right = self.cpu.position + value
+    def cpu_move(self, value):
+        move_left = self.cpu.position - value
+        move_right = self.cpu.position + value
 
-    if move_right == self.player.position:
-        self.cpu.position = move_right
-        if len(self.cpu.hand) > 0:
-            discarded_card = self.cpu.play_card(random.randint(0, len(self.cpu.hand) - 1))
-            print(f'CPU discards {discarded_card} to stay in the game.')
-        self.update_board()
-        self.end_game("CPU wins!")
-    elif move_left == self.player.position:
-        self.cpu.position = move_left
-        if len(self.cpu.hand) > 0:
-            discarded_card = self.cpu.play_card(random.randint(0, len(self.cpu.hand) - 1))
-            print(f'CPU discards {discarded_card} to stay in the game.')
-        self.update_board()
-        self.end_game("CPU wins!")
-    elif 0 <= move_right < 23 and move_right < self.player.position:
-        self.cpu.position = move_right
-    else:
-        self.cpu.position = move_left
+        if move_right == self.player.position:
+            self.cpu.position = move_right
+            if len(self.cpu.hand) > 0:
+                discarded_card = self.cpu.play_card(random.randint(0, len(self.cpu.hand) - 1))
+                print(f'CPU discards {discarded_card} to stay in the game.')
+            self.update_board()
+            self.end_game("CPU wins!")
+        elif move_left == self.player.position:
+            self.cpu.position = move_left
+            if len(self.cpu.hand) > 0:
+                discarded_card = self.cpu.play_card(random.randint(0, len(self.cpu.hand) - 1))
+                print(f'CPU discards {discarded_card} to stay in the game.')
+            self.update_board()
+            self.end_game("CPU wins!")
+        elif 0 <= move_right < 23 and move_right < self.player.position:
+            self.cpu.position = move_right
+        else:
+            self.cpu.position = move_left
 
-    self.update_board()
+        self.update_board()
 
     def move_player(self, player, value):
         new_pos = player.position + value
