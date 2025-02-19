@@ -195,10 +195,6 @@ class Game:
         self.update_board()
 
     def end_game(self, message):
-        # Destroy all widgets in the root window
-        for widget in self.root.winfo_children():
-            widget.destroy()
-        
         # Destroy the player's hand frame if it exists
         if self.player_hand_frame:
             self.player_hand_frame.destroy()
