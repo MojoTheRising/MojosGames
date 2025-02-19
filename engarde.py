@@ -207,8 +207,13 @@ class Game:
             self.game_over = True  # Set the game over flag
 
             # Update the board to reflect the final positions
-            self.board[self.player.position] = ' '  # Clear player's icon
-            self.board[self.cpu.position] = 'C'  # Set CPU's icon
+            if "CPU wins!" in message:
+                self.board[self.player.position] = ' '  # Clear player's icon
+                self.board[self.cpu.position] = 'C'  # Set CPU's icon
+            else:
+                self.board[self.cpu.position] = ' '  # Clear CPU's icon
+                self.board[self.player.position] = 'P'  # Set player's icon
+            
             self.update_board()  # Refresh the board
 
             # Destroy the player's hand frame if it exists
