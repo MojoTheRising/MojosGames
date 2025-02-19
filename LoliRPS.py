@@ -143,6 +143,7 @@ def disable_buttons():
     paper_button.config(state=tk.DISABLED)
     scissors_button.config(state=tk.DISABLED)
     play_again_button.pack()  # Show the "Play Again" button
+    root.bind("<space>", start_new_game)  # Bind the space bar to start a new game
 
 def enable_buttons():
     root.bind("<Left>", select_rock)
@@ -152,6 +153,7 @@ def enable_buttons():
     paper_button.config(state=tk.NORMAL)
     scissors_button.config(state=tk.NORMAL)
     play_again_button.pack_forget()  # Hide the "Play Again" button initially
+    root.unbind("<space>")  # Unbind the space bar to prevent starting a new game mid-game
 
 def play_background_music():
     pygame.mixer.music.load("music/background.mp3")  # Load the background music file
@@ -221,6 +223,9 @@ def select_paper(event):
 
 def select_scissors(event):
     player_move("scissors")
+    
+def start_new_game(event):
+    init_characters(reset_wins=False)
 
 # Initialize pygame
 pygame.init()
