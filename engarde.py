@@ -210,6 +210,7 @@ class Game:
             if "CPU wins!" in message:
                 self.board[self.player.position] = ' '  # Clear player's icon
                 self.board[self.cpu.position] = 'C'  # Set CPU's icon
+                self.buttons[self.player.position].configure(text='C')  # Manually set the button text to 'C'
             else:
                 self.board[self.cpu.position] = ' '  # Clear CPU's icon
                 self.board[self.player.position] = 'P'  # Set player's icon
