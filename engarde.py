@@ -35,6 +35,7 @@ class Game:
         self.root = root
         self.board = [' ' for _ in range(23)]
         self.player_hand_frame = None  # Initialize player_hand_frame to None
+        self.game_over = False  # Add a flag to check if the game is over
         self.create_widgets()
 
     def deal(self):
@@ -73,7 +74,7 @@ class Game:
             
             self.show_hand()  # Update the player's hand display
             
-            if self.is_game_over():
+            if self.is_game_over() and not self.game_over:  # Check if the game is over and flag is not set
                 winner = "Player wins!" if self.player.position == self.cpu.position else "CPU wins!"
                 self.end_game(winner)
 
@@ -113,11 +114,16 @@ class Game:
         right_btn.pack(side=tk.RIGHT)
 
     def move_and_close(self, window, player, value, player_card):
+        if self.is_game_over():  # Check if the game is over
+            return  # If the game is over, do nothing
+
         if self.can_move(player, value):
             self.move_player(player, value)
-            self.player.draw_card(self.deck)
+            if not self.is_game_over():  # Only draw a card if the game is not over
+                self.player.draw_card(self.deck)
             window.destroy()
-            self.cpu_play(player_card)
+            if not self.is_game_over():  # Only let the CPU play if the game is not over
+                self.cpu_play(player_card)
         else:
             self.player.hand.insert(self.player_current_card, player_card)
             window.destroy()
@@ -131,6 +137,9 @@ class Game:
             return 0 <= new_pos < 23
 
     def cpu_play(self, player_card):
+        if self.is_game_over():  # Check if the game is over
+            return  # If the game is over, do nothing
+
         for cpu_index, cpu_card in enumerate(self.cpu.hand):
             move_left = self.cpu.position - cpu_card.value
             move_right = self.cpu.position + cpu_card.value
@@ -195,14 +204,17 @@ class Game:
         self.update_board()
 
     def end_game(self, message):
-        # Destroy the player's hand frame if it exists
-        if self.player_hand_frame:
-            self.player_hand_frame.destroy()
-            self.player_hand_frame = None  # Set to None after destroying
-        
-        # Display the end game message
-        end_label = tk.Label(self.root, text=message, font=('Helvetica', 24))
-        end_label.pack()
+        if not self.game_over:  # Check if the game has already ended
+            self.game_over = True  # Set the game over flag
+
+            # Destroy the player's hand frame if it exists
+            if self.player_hand_frame:
+                self.player_hand_frame.destroy()
+                self.player_hand_frame = None  # Set to None after destroying
+            
+            # Display the end game message
+            end_label = tk.Label(self.root, text=message, font=('Helvetica', 24))
+            end_label.pack()
 
 def main():
     root = tk.Tk()
