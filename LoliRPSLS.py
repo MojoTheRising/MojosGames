@@ -154,12 +154,16 @@ def disable_buttons():
     rock_button.config(state=tk.DISABLED)
     paper_button.config(state=tk.DISABLED)
     scissors_button.config(state=tk.DISABLED)
+    lizard_button.config(state=tk.DISABLED)  # Deactivate lizard button
+    spock_button.config(state=tk.DISABLED)   # Deactivate spock button
     play_again_button.pack()  # Show the "Play Again" button
 
 def enable_buttons():
     rock_button.config(state=tk.NORMAL)
     paper_button.config(state=tk.NORMAL)
     scissors_button.config(state=tk.NORMAL)
+    lizard_button.config(state=tk.NORMAL)
+    spock_button.config(state=tk.NORMAL)
     play_again_button.pack_forget()  # Hide the "Play Again" button initially
 
 def play_background_music():
