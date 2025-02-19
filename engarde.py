@@ -69,13 +69,12 @@ class Game:
                     else:
                         self.buttons[i].configure(text=' ')
                 except tk.TclError:
-                    # Handle the case where the button does not exist
                     pass
             
-            self.show_hand()  # Update the player's hand display
+            self.show_hand()
             
-            if self.is_game_over() and not self.game_over:  # Check if the game is over and flag is not set
-                winner = "Player wins!" if self.player.position == self.cpu.position else "CPU wins!"
+            if self.is_game_over() and not self.game_over:
+                winner = "Player wins!" if self.player.position < self.cpu.position else "CPU wins!"
                 self.end_game(winner)
 
     def show_hand(self):
@@ -207,11 +206,16 @@ class Game:
         if not self.game_over:  # Check if the game has already ended
             self.game_over = True  # Set the game over flag
 
+            # Update the board to reflect the final positions
+            self.board[self.player.position] = ' '  # Clear player's icon
+            self.board[self.cpu.position] = 'C'  # Set CPU's icon
+            self.update_board()  # Refresh the board
+
             # Destroy the player's hand frame if it exists
             if self.player_hand_frame:
                 self.player_hand_frame.destroy()
                 self.player_hand_frame = None  # Set to None after destroying
-            
+
             # Display the end game message
             end_label = tk.Label(self.root, text=message, font=('Helvetica', 24))
             end_label.pack()
