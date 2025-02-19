@@ -34,6 +34,7 @@ class Game:
         self.cpu = Player("CPU", 22)
         self.root = root
         self.board = [' ' for _ in range(23)]
+        self.player_hand_frame = None  # Initialize player_hand_frame to None
         self.create_widgets()
 
     def deal(self):
@@ -69,6 +70,8 @@ class Game:
                 except tk.TclError:
                     # Handle the case where the button does not exist
                     pass
+            
+            self.show_hand()  # Update the player's hand display
             
             if self.is_game_over():
                 winner = "Player wins!" if self.player.position == self.cpu.position else "CPU wins!"
@@ -190,10 +193,16 @@ class Game:
         self.update_board()
 
     def end_game(self, message):
+        # Destroy all widgets in the root window
         for widget in self.root.winfo_children():
             widget.destroy()
+        
+        # Destroy the player's hand frame if it exists
         if self.player_hand_frame:
-            self.player_hand_frame.destroy()  # Destroy the player's hand frame
+            self.player_hand_frame.destroy()
+            self.player_hand_frame = None  # Set to None after destroying
+        
+        # Display the end game message
         end_label = tk.Label(self.root, text=message, font=('Helvetica', 24))
         end_label.pack()
 
