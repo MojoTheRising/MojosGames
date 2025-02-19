@@ -138,6 +138,34 @@ class Game:
 
         self.show_hand()
 
+    def move_player(self, player, value):
+        new_pos = player.position + value
+        if player == self.player:
+            if 0 <= new_pos < 23:
+                player.position = new_pos
+                if player.position == self.cpu.position:
+                    if len(player.hand) > 0:
+                        discarded_card = player.play_card(random.randint(0, len(player.hand) - 1))
+                        print(f'{player.name} discards {discarded_card} to stay in the game.')
+                    self.update_board()
+                    if len(player.hand) == 0:  # Check if no cards left
+                        self.end_game("Player wins!")
+                    else:
+                        self.cpu_play(None)  # Let CPU play next
+        else:
+            if 0 <= new_pos < 23:
+                player.position = new_pos
+                if player.position == self.player.position:
+                    if len(player.hand) > 0:
+                        discarded_card = player.play_card(random.randint(0, len(player.hand) - 1))
+                        print(f'{player.name} discards {discarded_card} to stay in the game.')
+                    self.update_board()
+                    if len(player.hand) == 0:  # Check if no cards left
+                        self.end_game("CPU wins!")
+                    else:
+                        self.show_hand()  # Let player play next
+        self.update_board()
+
     def cpu_move(self, value):
         move_left = self.cpu.position - value
         move_right = self.cpu.position + value
@@ -148,43 +176,25 @@ class Game:
                 discarded_card = self.cpu.play_card(random.randint(0, len(self.cpu.hand) - 1))
                 print(f'CPU discards {discarded_card} to stay in the game.')
             self.update_board()
-            self.end_game("CPU wins!")
+            if len(self.cpu.hand) == 0:  # Check if no cards left
+                self.end_game("CPU wins!")
+            else:
+                self.show_hand()  # Let player play next
         elif move_left == self.player.position:
             self.cpu.position = move_left
             if len(self.cpu.hand) > 0:
                 discarded_card = self.cpu.play_card(random.randint(0, len(self.cpu.hand) - 1))
                 print(f'CPU discards {discarded_card} to stay in the game.')
             self.update_board()
-            self.end_game("CPU wins!")
+            if len(self.cpu.hand) == 0:  # Check if no cards left
+                self.end_game("CPU wins!")
+            else:
+                self.show_hand()  # Let player play next
         elif 0 <= move_right < 23 and move_right < self.player.position:
             self.cpu.position = move_right
         else:
             self.cpu.position = move_left
 
-        self.update_board()
-
-    def move_player(self, player, value):
-        new_pos = player.position + value
-        if player == self.player:
-            if 0 <= new_pos < 23:
-                player.position = new_pos
-                if player.position == self.cpu.position:
-                    # Add logic to discard a random card if about to lose
-                    if len(player.hand) > 0:
-                        discarded_card = player.play_card(random.randint(0, len(player.hand) - 1))
-                        print(f'{player.name} discards {discarded_card} to stay in the game.')
-                    self.update_board()
-                    self.end_game("Player wins!")
-        else:
-            if 0 <= new_pos < 23:
-                player.position = new_pos
-                if player.position == self.player.position:
-                    # Add logic to discard a random card if about to lose
-                    if len(player.hand) > 0:
-                        discarded_card = player.play_card(random.randint(0, len(player.hand) - 1))
-                        print(f'{player.name} discards {discarded_card} to stay in the game.')
-                    self.update_board()
-                    self.end_game("CPU wins!")
         self.update_board()
 
     def end_game(self, message):
