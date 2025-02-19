@@ -73,11 +73,16 @@ class Game:
     def show_hand(self):
         if self.player_hand_frame:
             self.player_hand_frame.destroy()  # Destroy existing frame
-        self.player_hand_frame = tk.Frame(self.root)  # Re-create the frame
-        self.player_hand_frame.pack()
-        for index, card in enumerate(self.player.hand):
-            btn = tk.Button(self.player_hand_frame, text=str(card), command=lambda i=index: self.play_round(i))
-            btn.pack(side=tk.LEFT)
+        if not self.is_game_over():  # Check if the game is not over
+            self.player_hand_frame = tk.Frame(self.root)  # Re-create the frame
+            self.player_hand_frame.pack()
+            for index, card in enumerate(self.player.hand):
+                btn = tk.Button(self.player_hand_frame, text=str(card), command=lambda i=index: self.play_round(i))
+                btn.pack(side=tk.LEFT)
+
+    def is_game_over(self):
+        # Check if either player has won
+        return self.player.position == self.cpu.position
 
     def play_round(self, player_index):
         self.player_current_card = player_index  # Store the current card index
