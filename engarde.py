@@ -147,6 +147,8 @@ class Game:
                     if len(player.hand) > 0:
                         discarded_card = player.play_card(random.randint(0, len(player.hand) - 1))
                         print(f'{player.name} discards {discarded_card} to stay in the game.')
+                    else:
+                        self.end_game("CPU wins!")
                     self.update_board()
                     if len(player.hand) == 0:  # Check if no cards left
                         self.end_game("Player wins!")
@@ -159,6 +161,8 @@ class Game:
                     if len(player.hand) > 0:
                         discarded_card = player.play_card(random.randint(0, len(player.hand) - 1))
                         print(f'{player.name} discards {discarded_card} to stay in the game.')
+                    else:
+                        self.end_game("Player wins!")
                     self.update_board()
                     if len(player.hand) == 0:  # Check if no cards left
                         self.end_game("CPU wins!")
