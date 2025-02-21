@@ -29,7 +29,7 @@ class Character:
                 image_path = random.choice(images)
                 self.last_image_path = image_path  # Store the new selected image path
                 image = Image.open(image_path)
-                max_size = (200, 200)  # Increase the maximum size to 200x200 pixels
+                max_size = (375, 375)  # Increase the maximum size to 375x375 pixels
                 image.thumbnail(max_size, Image.LANCZOS)
                 return ImageTk.PhotoImage(image)
             else:
@@ -233,7 +233,7 @@ pygame.init()
 # Create the main window
 root = tk.Tk()
 root.title("Rock, Paper, Scissors - Battle")
-root.geometry("600x600")  # Reduced the window height to 550 pixels
+root.attributes('-fullscreen', True)  # Set full screen mode
 
 # Add key bindings
 root.bind("<Left>", select_rock)
