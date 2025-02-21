@@ -10,6 +10,20 @@ intense_music_started = False
 # Track if super intense music has started
 superintense_music_started = False
 
+# Define winning and losing phrases
+winning_phrases = [
+    "Yay! I won!", "I'm the best!", "That was easy!", "I'm on fire!", "I'm a champion!",
+    "Too easy!", "I did it!", "I'm unbeatable!", "Yes! I won!", "Victory is mine!"
+    # Add 40 more phrases here...
+]
+
+losing_phrases = [
+    "Oh no, I lost!", "I'll get you next time!", "That was close!", "I can do better!",
+    "I need to practice more!", "You got lucky!", "I'll win next time!", "Good game!",
+    "I'm not giving up!", "I'll try harder next time!"
+    # Add 40 more phrases here...
+]
+
 class Character:
     def __init__(self, name, hp, img_prefix):
         self.name = name
@@ -184,9 +198,11 @@ def player_move(player_choice):
     if winner == 1:
         loli2.hp -= 1
         round_result += f"\n{loli2.name} loses 1 HP! Remaining HP: {loli2.hp}"
+        round_result += f"\nCPU: {random.choice(losing_phrases)}"
     elif winner == 2:
         loli1.hp -= 1
         round_result += f"\n{loli1.name} loses 1 HP! Remaining HP: {loli1.hp}"
+        round_result += f"\nCPU: {random.choice(winning_phrases)}"
     else:
         round_result += "\nIt's a tie! No HP lost."
 
@@ -223,7 +239,7 @@ def select_paper(event):
 
 def select_scissors(event):
     player_move("scissors")
-    
+
 def start_new_game(event):
     init_characters(reset_wins=False)
 
