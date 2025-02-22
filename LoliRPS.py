@@ -258,7 +258,7 @@ root.bind("<Right>", select_scissors)
 
 # Create and place widgets for the characters and their hit points
 frame = tk.Frame(root)
-frame.pack(pady=0)  # Remove padding
+frame.pack()
 
 loli1_win_label = tk.Label(frame, text="Wins: 0", font=("Helvetica", 14))
 loli1_win_label.grid(row=0, column=0, padx=5, pady=5, sticky=tk.W)  # Adjust position of Loli 1's win label
@@ -279,16 +279,16 @@ loli2_win_label = tk.Label(frame, text="Wins: 0", font=("Helvetica", 14))
 loli2_win_label.grid(row=0, column=3, padx=5, pady=5, sticky=tk.E)  # Adjust position of Loli 2's win label
 
 # Create a canvas for animations
-canvas = tk.Canvas(root, width=600, height=150)
+canvas = tk.Canvas(root, width=600, height=125)
 canvas.pack()
 
 # Create and place widgets for the result
 result_label = tk.Label(root, text="Make your move!", font=("Helvetica", 14))
-result_label.pack(pady=0)  # Remove padding
+result_label.pack(pady=0)  # Move up by removing padding
 
 # Create and place buttons for player choices using images
 button_frame = tk.Frame(root)
-button_frame.pack(pady=0)  # Remove padding
+button_frame.pack(pady=0)  # Move up by removing padding
 
 # Load images for rock, paper, scissors
 rock_image = ImageTk.PhotoImage(Image.open("images/rock.png").resize((80, 80), Image.LANCZOS))
@@ -313,7 +313,7 @@ scissors_button.grid(row=0, column=2, padx=5)  # Use grid layout and reduce padd
 
 # Create and place the "Play Again" button
 play_again_button = tk.Button(root, text="Play Again", command=lambda: init_characters(reset_wins=False), font=("Helvetica", 14))
-play_again_button.pack(pady=5)  # Remove padding
+play_again_button.pack(pady=0)  # Move up by removing padding
 play_again_button.pack_forget()  # Hide the "Play Again" button initially
 
 # Initialize characters and update GUI
